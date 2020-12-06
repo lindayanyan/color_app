@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/_menu">
+
+    <fragment
+        android:id="@+id/FirstFragment"
+        android:name="com.example.colorapp.FirstFragment"
+        android:label="@string/first_fragment_label"
+        tools:layout="@layout/fragment_first">
+        <action
+            android:id="@+id/action_FirstFragment_to__menu"
+            app:destination="@id/_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/SecondFragment"
+        android:name="com.example.colorapp.SecondFragment"
+        android:label="@string/second_fragment_label"
+        tools:layout="@layout/fragment_second">
+        <action
+            android:id="@+id/action_SecondFragment_to__menu"
+            app:destination="@id/_menu" />
+    </fragment>
+    <fragment
+        android:id="@+id/_menu"
+        android:name="com.example.colorapp._menu"
+        android:label="fragment__menu"
+        tools:layout="@layout/fragment__menu" >
+        <action
+            android:id="@+id/action__menu_to_SecondFragment"
+            app:destination="@id/SecondFragment" />
+        <action
+            android:id="@+id/action__menu_to_FirstFragment"
+            app:destination="@id/FirstFragment" />
+        <action
+            android:id="@+id/action__menu_to_photo"
+            app:destination="@id/photo" />
+        <action
+            android:id="@+id/action__menu_to_colorPickerDialog"
+            app:destination="@id/colorPickerDialog" />
+    </fragment>
+
+    <activity
+        android:id="@+id/photo"
+        android:name="com.example.colorapp.photo"
+        android:label="activity_photo"
+        tools:layout="@layout/activity_photo" />
+
+
+    <activity
+        android:id="@+id/colorPickerDialog"
+        android:name="com.example.colorapp.ColorPickerDialog"
+        android:label="activity_color_picker_dialog2"
+        tools:layout="@layout/activity_color_picker_dialog2" />
+</navigation>
