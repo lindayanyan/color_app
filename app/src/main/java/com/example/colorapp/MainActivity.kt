@@ -14,7 +14,7 @@ import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 
 class MainActivity : AppCompatActivity() {
 
-    private val colorPickerView: ColorPickerView? = findViewById(R.id.colorPickerView)
+    // private var colorPickerView: ColorPickerView? = findViewById(R.id.colorPickerView)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -22,10 +22,10 @@ class MainActivity : AppCompatActivity() {
         // Get a support ActionBar corresponding to this toolbar and enable the Up button
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        colorPickerView?.setHsvPaletteDrawable()
-        //Log.d(TAG, "FILE2")
+        // Log.d(TAG, "FILE2")
 
-        //colorPickerView = findViewById(R.id.colorPickerView)
+        var colorPickerView: ColorPickerView? = findViewById(R.id.colorPickerView)
+        colorPickerView?.setHsvPaletteDrawable()
         val bubbleFlag = BubbleFlag(this)
         bubbleFlag.flagMode = FlagMode.FADE
 
@@ -37,8 +37,6 @@ class MainActivity : AppCompatActivity() {
                    // setLayoutColor(envelope)
                 })
         }
-
-
     }
 
 
