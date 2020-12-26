@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="alphaTileView" type="id" />
+    <item name="textView" type="id"/>
+    <item name="hex_code" type="id" />
+    <item name="alphaTileView_1" type="id" />
+</resources>

@@ -17,16 +17,17 @@
 
 package com.example.colorapp
 
-import android.annotation.SuppressLint
 import android.content.DialogInterface
+import android.graphics.Color
 import android.os.Bundle
 import android.widget.Button
+import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import com.skydoves.colorpickerview.AlphaTileView
 import com.skydoves.colorpickerview.ColorEnvelope
 import com.skydoves.colorpickerview.ColorPickerDialog
 import com.skydoves.colorpickerview.ColorPickerView
 import com.skydoves.colorpickerview.flag.BubbleFlag
-import com.skydoves.colorpickerview.flag.FlagMode
 import com.skydoves.colorpickerview.listeners.ColorEnvelopeListener
 import com.skydoves.colorpickerview.sliders.AlphaSlideBar
 import com.skydoves.colorpickerview.sliders.BrightnessSlideBar
@@ -51,21 +52,14 @@ class ColorPickerDialog: AppCompatActivity() {
     }
 
 
-    @SuppressLint("SetTextI18n")
-    fun setLayoutColor(envelope: ColorEnvelope) {
-        //val textView = findViewById<TextView>(R.id.textView)
-        //textView.text = "#" + envelope.hexCode
-       // val alphaTileView = findViewById<AlphaTileView>(R.id.alphaTileView)
-        //alphaTileView.setPaintColor(envelope.color)
-    }
+    private fun dialog(){
 
-    fun dialog(){
         val builder = ColorPickerDialog.Builder(this)
                 .setTitle("ColorPicker Dialog")
                 .setPreferenceName("Test")
                 //refers to the two buttons on page, cancel should do nothing while select should save the color and display codes
                 .setPositiveButton(
-                        "select",
+                        "select", //updates alphaTile to newly selected color
                         ColorEnvelopeListener { envelope: ColorEnvelope?, fromUser: Boolean ->
                             if (envelope != null) {
                                 setLayoutColor(envelope)
@@ -73,25 +67,39 @@ class ColorPickerDialog: AppCompatActivity() {
                             }
                         })
         .setNegativeButton(
-                "cancel")
-                { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss() }
+                "cancel") //no update to alphaTile
+                { dialogInterface: DialogInterface, i: Int -> dialogInterface.dismiss()
+        }
         builder.colorPickerView.setFlagView(BubbleFlag(this))
         builder.show()
     }
 
-    fun color_picker(){
+    private fun setLayoutColor(envelope: ColorEnvelope) {
+        val color = ColorCode(envelope.hexCode.substring(2)) //creates ColorCode object
+        val textView_cc1 = findViewById<TextView>(R.id.cc1)//finds textview
+        val textView_cc2 = findViewById<TextView>(R.id.cc2)
+        val textView_cc3 = findViewById<TextView>(R.id.cc3)
 
-        var colorPickerView: ColorPickerView = findViewById(R.id.colorPickerView)
-        colorPickerView?.setHsvPaletteDrawable() //width and height currently evaluate to 0, need to fix view finding
-        val bubbleFlag = BubbleFlag(this)
-        bubbleFlag.flagMode = FlagMode.FADE
+        val n = Color.parseColor("#"+color.get_hex()) // goes from hex to int of color*/
+        val cg = color_group(color) //creates color group; bug occurs here
 
-        colorPickerView.setFlagView(bubbleFlag)
-        colorPickerView.setColorListener(
-                ColorEnvelopeListener { envelope: ColorEnvelope, fromUser: Boolean ->
-                    //Timber.d("color: %s", envelope.hexCode)
-                    setLayoutColor(envelope)
-                })
+        //original chosen color
+        val alphaTileView1 = findViewById<AlphaTileView>(R.id.alphaTileView_1)//updates alphatile
+        alphaTileView1.setPaintColor(envelope.color)
+        textView_cc1.text = color.get_text()
+
+        //color #2
+        val color2 = cg.get_c2()
+        val n2 = Color.parseColor("#"+color2.get_hex())
+        val alphaTileView2 = findViewById<AlphaTileView>(R.id.alphaTileView_2)
+        alphaTileView2.setPaintColor(n2)
+        textView_cc2.text = color2.get_text()
+
+        //color #3
+        val color3 = cg.get_c3()
+        val alphaTileView3 = findViewById<AlphaTileView>(R.id.alphaTileView_3)
+        alphaTileView3.setPaintColor(envelope.color)
+        textView_cc3.text = color3.get_text()
     }
 
 
