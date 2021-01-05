@@ -11,6 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:clickable="true"
+
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.912"
@@ -31,6 +32,27 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.964"
         app:srcCompat="@android:drawable/ic_menu_add" />
+
+    <com.skydoves.colorpickerview.ColorPickerView
+        android:id="@+id/colorPickerView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.143"
+        app:selector="@drawable/wheel"
+        app:selector_size="32dp"
+        app:alpha_selector="0.8"
+        app:alpha_flag="0.8"
+        app:actionMode="last"
+        app:initialColor="@color/colorPrimary"
+        app:preferenceName="MyColorPicker"
+        app:debounceDuration="200" />
+
+     <!--   app:palette="@drawable/palette"-->
+
 
     <ImageView
         android:id="@+id/img_preview"

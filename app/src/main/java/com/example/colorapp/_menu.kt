@@ -46,8 +46,6 @@ class _menu : Fragment() {
 
         view.findViewById<Button>(R.id.color_match_button).setOnClickListener{
             findNavController().navigate(R.id.action__menu_to_photo)
-            //val snack = Snackbar.make(it,"no action yet",Snackbar.LENGTH_LONG)
-            //snack.show()
         }
         view.findViewById<Button>(R.id.picker_button).setOnClickListener{
             findNavController().navigate(R.id.action__menu_to_colorPickerDialog)
@@ -59,6 +57,7 @@ class _menu : Fragment() {
             snack.show()
         }
         view.findViewById<Button>(R.id.saved_button).setOnClickListener{
+            findNavController().navigate(R.id.action__menu_to_colorSaved)
             val snack = Snackbar.make(it,"no action yet",Snackbar.LENGTH_LONG)
             snack.show()
         }

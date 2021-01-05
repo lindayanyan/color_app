@@ -6,6 +6,7 @@ class color_group() {
     lateinit var c2: ColorCode
     lateinit var c3: ColorCode
 
+    //hex of c2 and c3 is incorrect
     constructor(c: ColorCode) : this() {
         c1=c
         makeC2()
@@ -36,7 +37,7 @@ class color_group() {
 
 
     fun get_c3(): ColorCode{
-        return get_c3()
+        return c3
     }
 
 

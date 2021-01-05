@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.ColorApp">
-        <activity android:name=".ColorPickerDialog"></activity>
+        <activity android:name=".ColorSaved"></activity>
+        <activity android:name=".ColorPickerDialog" />
         <activity android:name=".photo" />
         <activity
             android:name=".MainActivity"

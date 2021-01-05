@@ -80,8 +80,7 @@ class ColorPickerDialog: AppCompatActivity() {
         val textView_cc2 = findViewById<TextView>(R.id.cc2)
         val textView_cc3 = findViewById<TextView>(R.id.cc3)
 
-        val n = Color.parseColor("#"+color.get_hex()) // goes from hex to int of color*/
-        val cg = color_group(color) //creates color group; bug occurs here
+        val cg = color_group(color) //creates color group
 
         //original chosen color
         val alphaTileView1 = findViewById<AlphaTileView>(R.id.alphaTileView_1)//updates alphatile
@@ -90,15 +89,16 @@ class ColorPickerDialog: AppCompatActivity() {
 
         //color #2
         val color2 = cg.get_c2()
-        val n2 = Color.parseColor("#"+color2.get_hex())
+        val n2 = Color.parseColor(color2.get_hex()) // goes from hex to int of color*/
         val alphaTileView2 = findViewById<AlphaTileView>(R.id.alphaTileView_2)
         alphaTileView2.setPaintColor(n2)
         textView_cc2.text = color2.get_text()
 
         //color #3
         val color3 = cg.get_c3()
+        val n3 = Color.parseColor(color3.get_hex())
         val alphaTileView3 = findViewById<AlphaTileView>(R.id.alphaTileView_3)
-        alphaTileView3.setPaintColor(envelope.color)
+        alphaTileView3.setPaintColor(n3)
         textView_cc3.text = color3.get_text()
     }
 

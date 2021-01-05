@@ -14,6 +14,8 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 
+
+
 class photo : AppCompatActivity() {
     private val cameraRequest = 1888
     lateinit var imageView: ImageView
@@ -25,7 +27,8 @@ class photo : AppCompatActivity() {
         setContentView(R.layout.activity_photo)
         print("TAG + $TAG")
         Log.d(TAG, "my log is here")
-        findViewById<FloatingActionButton>(R.id.camera_fab).setOnClickListener() {view ->
+
+        findViewById<FloatingActionButton>(R.id.camera_fab).setOnClickListener() { view ->
             camera_permissions()
             imageView = findViewById(R.id.img_preview)
             //code on camera stuff adapted from
@@ -35,15 +38,29 @@ class photo : AppCompatActivity() {
             Log.d(TAG, "CAMERA")
             //still need to figure out how to save it...
         }
-        findViewById<FloatingActionButton>(R.id.file_fab).setOnClickListener() {view ->
+        findViewById<FloatingActionButton>(R.id.file_fab).setOnClickListener() { view ->
             //code for galleries adapted from
             //https://medium.com/developer-student-clubs/android-kotlin-camera-using-gallery-ff8591c26c3e
             file_permissions()
             val gallery = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.INTERNAL_CONTENT_URI)
-          startActivityForResult(gallery, fileRequest)
+            gallery.setType("image/*");
+            startActivityForResult(gallery, fileRequest)
             Log.d(TAG, "FILE1")
+
         }
     }
+
+  /* fun colorpick(){
+      try {
+           val imageUri: Uri = data.getData()
+           val imageStream: InputStream? = contentResolver.openInputStream(imageUri)
+           val selectedImage = BitmapFactory.decodeStream(imageStream)
+           val drawable: Drawable = BitmapDrawable(resources, selectedImage)
+           colorPickerView.setPaletteDrawable(drawable)
+       } catch (e: FileNotFoundException) {
+           e.printStackTrace()
+       }
+   }*/
 
 
     // companion object = static objects
@@ -61,6 +78,12 @@ class photo : AppCompatActivity() {
 
         if(resultCode == RESULT_OK && requestCode == fileRequest){
            imageView.setImageURI(data?.data)
+           // val imageUri: Uri = attr.data.//getData()
+            //val imageStream = contentResolver.openInputStream(imageUri)
+            //val selectedImage = BitmapFactory.decodeStream(imageStream)
+           // val drawable: Drawable = BitmapDrawable(resources, selectedImage)
+            //imageView.setPaletteDrawable(drawable)
+           // imageView.setImageDrawable(drawable)
            Log.d(TAG, "error did not reach")
         }
     }
@@ -73,19 +96,19 @@ class photo : AppCompatActivity() {
     //complete list of android app requests : https://androidjson.com/android-request-multiple-runtime-permissions/#:~:text=List%20of%20all%20Runtime%20Permission%20in%20Android%20Marshmallow,ACCESS_FINE_LOCATION%20ACCESS_COARSE_LOCAT%20...%20%206%20more%20rows%20
     fun file_permissions(){
         if (ContextCompat.checkSelfPermission(this@photo,
-                Manifest.permission.READ_EXTERNAL_STORAGE) !== //asks to read storage (go through user's camera roll)
+                        Manifest.permission.READ_EXTERNAL_STORAGE) !== //asks to read storage (go through user's camera roll)
             PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this@photo,
-                    arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
+                        arrayOf(Manifest.permission.READ_EXTERNAL_STORAGE), 1)
         }
 
     }
     fun camera_permissions(){
         if (ContextCompat.checkSelfPermission(this@photo,
-                Manifest.permission.CAMERA) !== //asks to get access to device camera
+                        Manifest.permission.CAMERA) !== //asks to get access to device camera
             PackageManager.PERMISSION_GRANTED) {
                 ActivityCompat.requestPermissions(this@photo,
-                    arrayOf(Manifest.permission.CAMERA), 2)
+                        arrayOf(Manifest.permission.CAMERA), 2)
         }
 
     }
@@ -95,10 +118,10 @@ class photo : AppCompatActivity() {
         when (requestCode) {
             1 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
+                        PackageManager.PERMISSION_GRANTED) {
                     if ((ContextCompat.checkSelfPermission(this@photo,
-                            Manifest.permission.READ_EXTERNAL_STORAGE) ===
-                                PackageManager.PERMISSION_GRANTED)) {
+                                    Manifest.permission.READ_EXTERNAL_STORAGE) ===
+                                    PackageManager.PERMISSION_GRANTED)) {
                         Toast.makeText(this, "Camera Roll Permission Granted", Toast.LENGTH_SHORT).show()
                     }
                 } else {
@@ -108,10 +131,10 @@ class photo : AppCompatActivity() {
             }
             2 -> {
                 if (grantResults.isNotEmpty() && grantResults[0] ==
-                    PackageManager.PERMISSION_GRANTED) {
+                        PackageManager.PERMISSION_GRANTED) {
                     if ((ContextCompat.checkSelfPermission(this@photo,
-                            Manifest.permission.CAMERA) ===
-                                PackageManager.PERMISSION_GRANTED)) {
+                                    Manifest.permission.CAMERA) ===
+                                    PackageManager.PERMISSION_GRANTED)) {
                         Toast.makeText(this, "Camera Access Granted", Toast.LENGTH_SHORT).show()
                     }
                 } else {

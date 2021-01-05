@@ -40,6 +40,10 @@
         <action
             android:id="@+id/action__menu_to_colorPickerDialog"
             app:destination="@id/colorPickerDialog" />
+        <action
+            android:id="@+id/action__menu_to_colorSaved"
+            app:destination="@id/colorSaved" />
+
     </fragment>
 
     <activity
@@ -53,5 +57,13 @@
         android:id="@+id/colorPickerDialog"
         android:name="com.example.colorapp.ColorPickerDialog"
         android:label="activity_color_picker_dialog2"
-        tools:layout="@layout/activity_color_picker_dialog2" />
+        tools:layout="@layout/activity_color_picker_dialog2" >
+    </activity>
+    <activity
+        android:id="@+id/colorSaved"
+        android:name="com.example.colorapp.ColorSaved"
+        android:label="activity_color_saved"
+        tools:layout="@layout/activity_color_saved" />
+
+
 </navigation>

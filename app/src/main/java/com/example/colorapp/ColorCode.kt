@@ -11,9 +11,12 @@ class ColorCode() {
     lateinit var cmyk: MutableList<Int>
     lateinit var hsv: MutableList<Int>
     lateinit var hex: String
+    lateinit var hex_t: String
+
 
     constructor(hex_i: String) : this() {
-        hex=hex_i
+        this.hex= hex_i
+        this.hex_t = "#"+ hex
 
         hex2rgb(hex)
         rgb2hsl()
@@ -21,43 +24,41 @@ class ColorCode() {
         rgb2hsv()
     }
     constructor(hsv_i: MutableList<Int>) : this() {
-        var i =0 //source code does not match bytecode
-        while(i<hsv_i.size){
-            hsv.add(hsv_i[i])
-            i++
-        }
+        hsv = mutableListOf(hsv_i[0], hsv_i[1], hsv_i[2])
 
         hsv2rgb()
-        rgb2hsv()
         rgb2cmyk()
         rgb2hex()
+        rgb2hsl()
     }
 
+
+
     fun get_text(): String{
-        var rgb_t = "RGB: " +rgb[0] +", " +rgb[1] + ", "+ rgb[2]
-        var hex_t = "HEX: #" + hex
-        var cmyk_t="CMYK: " +cmyk[0]+"%, "+cmyk[1]+"%, "+cmyk[2]+ "%, "+cmyk[3] +"%"
-        var hsl_t ="HSL: " + hsl[0] +", " + hsl[1]+ "%, "+ hsl[2]+"%"
-        var hsv_t ="HSV: " + hsv[0] + " °, "+ hsv[1] +"%, "+hsv[2] +"%"
+        val rgb_t = "RGB: " +rgb[0] +", " +rgb[1] + ", "+ rgb[2]
+        val hex_t = "HEX: " + hex
+        val cmyk_t="CMYK: " +cmyk[0]+"%, "+cmyk[1]+"%, "+cmyk[2]+ "%, "+cmyk[3] +"%"
+        val hsl_t ="HSL: " + hsl[0] +"°, " + hsl[1]+ "%, "+ hsl[2]+"%"
+        val hsv_t ="HSV: " + hsv[0] + "°, "+ hsv[1] +"%, "+hsv[2] +"%"
         return rgb_t +"\n"+ hex_t +"\n" +cmyk_t + "\n"+ hsl_t +"\n" +hsv_t
     }
     fun get_hex(): String {
-        return hex
+        return this.hex
     }
 
     fun get_rgb(): MutableList<Int> {
         //hex2rgb(hex)
-        return rgb
+        return this.rgb
     }
 
     fun get_hsl(): MutableList<Int>{
         //rgb2hsl()
-        return hsl
+        return this.hsl
     }
 
     fun get_cmyk(): MutableList<Int>{
         //rgb2cmyk()
-        return cmyk
+        return this.cmyk
     }
 
     fun get_hsv(): MutableList<Int>{
@@ -65,7 +66,7 @@ class ColorCode() {
       //      hex2rgb(hex)
        // }
        // rgb2hsv()
-        return hsv
+        return this.hsv
     }
 
     fun set_hsv(hsv_t: MutableList<Int>){
@@ -77,7 +78,7 @@ class ColorCode() {
     }
 
 
-    private fun hex2rgb(hex: String): MutableList<Int> { //converts hex code to rgb
+    private fun hex2rgb(hex: String){ //converts hex code to rgb
         var hex_a = mutableListOf("1")
         var count = 0
         while (count < hex.length) {
@@ -114,8 +115,7 @@ class ColorCode() {
         val G = hex_a[2].toInt() * 16 + hex_a[3].toInt()
         val B = hex_a[4].toInt() * 16 + hex_a[5].toInt()
         var hex_f = mutableListOf(R, G, B)
-        rgb = hex_f //sets field
-        return hex_f
+        this.rgb = hex_f //sets field
 
     }
 
@@ -165,6 +165,9 @@ class ColorCode() {
         h=h*60
         if (h < 0) {
             h = h + 360 }
+        if (h>360){
+            h=h-360
+        }
         l = (min + max) / 2;
         if (min == max) {
             s = 0.0;
@@ -177,7 +180,7 @@ class ColorCode() {
         }
         s*=100 //turns them into percents
         l*=100
-        hsl = mutableListOf(h.roundToInt(), s.roundToInt(), l.roundToInt());
+        this.hsl = mutableListOf(h.roundToInt(), s.roundToInt(), l.roundToInt());
 
     }
 
@@ -199,10 +202,11 @@ class ColorCode() {
             y = (1 - b - k) / (1 - k)
 
         }
-        cmyk = mutableListOf((c * 100).roundToInt(), (m * 100).roundToInt(), (y * 100).roundToInt(), (k * 100).roundToInt())
+        this.cmyk = mutableListOf((c * 100).roundToInt(), (m * 100).roundToInt(), (y * 100).roundToInt(), (k * 100).roundToInt())
     }
 
     private fun rgb2hsv(){
+
         var h =0.0;
         var s =0.0
         var v =0.0
@@ -234,15 +238,15 @@ class ColorCode() {
         if (h < 0){
             h+=360 }
 
-        hsv = mutableListOf(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt())
+        this.hsv = mutableListOf(h.roundToInt(), (s * 100).roundToInt(), (v * 100).roundToInt())
     }
 
     private fun hsv2rgb(){
-        var s = hsv[1].toDouble()/100.0
-        var v = hsv[2].toDouble()/100.0
-        var C = s*v
-        var X = C*(1- abs(hsv[0] % 60.0))
-        var m = v-C
+        val s = hsv[1].toDouble()/100.0
+        val v = hsv[2].toDouble()/100.0
+        val C = s*v
+        val X = C*(1- abs(((hsv[0] / 60) % 2) - 1))
+        val m = v-C
         var r =0.0
         var g = 0.0
         var b = 0.0
@@ -265,7 +269,7 @@ class ColorCode() {
         else{
             r=C; b=X
         }
-        rgb = mutableListOf(((r + m) * 255).roundToInt(), ((g + m) * 255).roundToInt(), ((b + m) * 255).toInt())
+        this.rgb = mutableListOf(((r + m) * 255).roundToInt(), ((g + m) * 255).roundToInt(), ((b + m) * 255).toInt())
 
     }
 
@@ -273,55 +277,8 @@ class ColorCode() {
     //code below is referenced from https://www.cocyer.com/convert-rgb-color-to-hex-code-in-java/
 
     fun rgb2hex() {  // Function to convert the RGB code to Hex color code
-
-        var hexCode: String? = "#"
-        hexCode += decToHexa(rgb[0])
-        hexCode += decToHexa(rgb[1])
-        hexCode += decToHexa(rgb[2])
-        if (hexCode != null) {
-            hex = hexCode
-        }
-
+        this.hex = java.lang.String.format("#%02X%02X%02X", this.rgb[0], this.rgb[1], this.rgb[2])
     }
-    fun decToHexa(n: Int): String? {
-        // char array to store hexadecimal number
-        var n = n
-        val hexaDeciNum = CharArray(2)
-
-        // counter for hexadecimal number array
-        var i = 0
-        while (n != 0) {
-
-            // temporary variable to store remainder
-            var temp = 0
-
-            // storing remainder in temp variable.
-            temp = n % 16
-
-            // check if temp < 10
-            if (temp < 10) {
-                hexaDeciNum[i] = (temp + 48).toChar()
-                i++
-            } else {
-                hexaDeciNum[i] = (temp + 55).toChar()
-                i++
-            }
-            n = n / 16
-        }
-        var hexCode = ""
-        if (i == 2) {
-            hexCode += hexaDeciNum[0]
-            hexCode += hexaDeciNum[1]
-        } else if (i == 1) {
-            hexCode = "0"
-            hexCode += hexaDeciNum[0]
-        } else if (i == 0) hexCode = "00"
-
-        // Return the equivalent
-        // hexadecimal color code
-        return hexCode
-    }
-
 
 
 }
