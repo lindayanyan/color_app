@@ -8,6 +8,30 @@
 
 
     <Button
+        android:id="@+id/save3_button"
+        android:layout_width="67dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
+        android:text="Save"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cc2" />
+
+    <Button
+        android:id="@+id/save2_button"
+        android:layout_width="67dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="168dp"
+        android:layout_marginRight="168dp"
+        android:text="Save"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cc3" />
+
+    <Button
         android:id="@+id/button_dialog"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -86,6 +110,18 @@
         app:layout_constraintStart_toEndOf="@+id/alphaTileView_3"
         app:layout_constraintTop_toBottomOf="@+id/alphaTileView_2"
         app:layout_constraintVertical_bias="0.15" />
+
+    <Button
+        android:id="@+id/save1_button"
+        android:layout_width="67dp"
+        android:layout_height="32dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="164dp"
+        android:layout_marginRight="164dp"
+        android:text="Save"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cc1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

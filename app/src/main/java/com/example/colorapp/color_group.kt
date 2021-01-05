@@ -40,5 +40,9 @@ class color_group() {
         return c3
     }
 
+    fun get_c1(): ColorCode{
+        return c1
+    }
+
 
 }

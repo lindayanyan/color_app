@@ -10,7 +10,10 @@ class ColorSaved : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_color_saved)
-        makeGrid() //crash site
+        //testing saving strings...
+        val t = findViewById<TextView>(R.id.textView2)
+
+        //makeGrid() //crash site
     }
 
     private fun makeGrid(){

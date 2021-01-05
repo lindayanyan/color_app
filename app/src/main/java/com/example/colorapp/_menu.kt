@@ -7,7 +7,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
-import com.google.android.material.snackbar.Snackbar
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -53,13 +52,13 @@ class _menu : Fragment() {
            // snack.show()
         }
         view.findViewById<Button>(R.id.try_button).setOnClickListener{
-            val snack = Snackbar.make(it,"no action yet",Snackbar.LENGTH_LONG)
-            snack.show()
+            //temporarily use for testing saving/ accessing .txt file
+            findNavController().navigate(R.id.action__menu_to_tryColor)
         }
         view.findViewById<Button>(R.id.saved_button).setOnClickListener{
             findNavController().navigate(R.id.action__menu_to_colorSaved)
-            val snack = Snackbar.make(it,"no action yet",Snackbar.LENGTH_LONG)
-            snack.show()
+           // val snack = Snackbar.make(it,"no action yet",Snackbar.LENGTH_LONG)
+           // snack.show()
         }
     }
     companion object {

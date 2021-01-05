@@ -43,6 +43,9 @@
         <action
             android:id="@+id/action__menu_to_colorSaved"
             app:destination="@id/colorSaved" />
+        <action
+            android:id="@+id/action__menu_to_tryColor"
+            app:destination="@id/tryColor" />
 
     </fragment>
 
@@ -64,6 +67,11 @@
         android:name="com.example.colorapp.ColorSaved"
         android:label="activity_color_saved"
         tools:layout="@layout/activity_color_saved" />
+    <activity
+        android:id="@+id/tryColor"
+        android:name="com.example.colorapp.tryColor"
+        android:label="activity_try_color"
+        tools:layout="@layout/activity_try_color" />
 
 
 </navigation>
