@@ -1,31 +1,55 @@
 package com.example.colorapp
 
 import android.os.Bundle
-import android.widget.AdapterView
-import android.widget.GridView
-import android.widget.TextView
+import android.util.Log
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.colorapp.adaptor.adaptor_color
+import com.example.colorapp.data.DataSource
+import java.io.FileInputStream
+
 
 class ColorSaved : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_color_saved)
-        //testing saving strings...
-        val t = findViewById<TextView>(R.id.textView2)
+        makeList()
+    }
 
-        //makeGrid() //crash site
+    private fun makeList(){
+        val codes = load()
+        val myDataset =  DataSource(codes).loadColors()
+        val recyclerView = findViewById<RecyclerView>(R.id.color_list)
+        val manager = LinearLayoutManager(this)
+        recyclerView.layoutManager = manager
+        recyclerView.adapter = adaptor_color(myDataset)
+        recyclerView.setHasFixedSize(true)
+
     }
 
     private fun makeGrid(){
         var colors = mutableListOf<ColorCode>()
-        var colorGrid = findViewById<GridView>(R.id.color_grid) //crash
+        //use recycler view to display colors
+        var colorList = findViewById<RecyclerView>(R.id.color_list) //crash
         val colorAdapter = ColorAdapter(this, colors)
-        colorGrid.adapter = colorAdapter
+        //colorList.adapter = colorAdapter
 
-        colorGrid.onItemClickListener = AdapterView.OnItemClickListener { parent, v, position, id ->
-            val text = findViewById<TextView>(R.id.info)
-            // insert color.getText method
+    }
+    fun load(): List<String>? {
+        try {
+            val fileInputStream: FileInputStream = openFileInput("outTextFile.txt")
+            var read = -1
+            val buffer = StringBuffer()
+            while (fileInputStream.read().also { read = it } != -1) {
+                buffer.append(read.toChar())
+            }
+            Log.d("Code", buffer.toString())
+            val codes = buffer.toString().substring(1).split(",")
+            return codes
+        } catch (e: Exception) {
+            e.printStackTrace()
         }
-
+        return null
     }
 }

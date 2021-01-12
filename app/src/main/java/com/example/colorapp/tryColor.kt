@@ -1,6 +1,5 @@
 package com.example.colorapp
 
-import android.graphics.Color
 import android.os.Bundle
 import android.service.quicksettings.Tile
 import android.util.Log
@@ -24,19 +23,20 @@ class tryColor : AppCompatActivity() {
 
         button.setOnClickListener{
             val hex =load()
-            val color = ColorCode(hex)
-            txt.text = color.get_text()
-            val color_int = Color.parseColor("#"+hex)
-            testTile.setPaintColor(color_int)
+            txt.text = hex
+            //val color = ColorCode(hex)
+           // txt.text = color.get_text()
+           // val color_int = Color.parseColor("#"+hex)
+           // testTile.setPaintColor(color_int)
         }
 
     }
 
     //code referenced from https://abhiandroid.com/database/internal-storage
-    //originally from java
+    //originally in java
     private fun load(): String {
         try {
-            val fileInputStream: FileInputStream = openFileInput("Code.txt")
+            val fileInputStream: FileInputStream = openFileInput("TextFile.txt")
             var read = -1
             val buffer = StringBuffer()
             while (fileInputStream.read().also { read = it } != -1) {

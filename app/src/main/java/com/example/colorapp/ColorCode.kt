@@ -10,13 +10,11 @@ class ColorCode() {
     lateinit var hsl: MutableList<Int>
     lateinit var cmyk: MutableList<Int>
     lateinit var hsv: MutableList<Int>
-    lateinit var hex: String
-    lateinit var hex_t: String
+    lateinit var hex: String //no "#"
 
 
     constructor(hex_i: String) : this() {
         this.hex= hex_i
-        this.hex_t = "#"+ hex
 
         hex2rgb(hex)
         rgb2hsl()
@@ -36,7 +34,7 @@ class ColorCode() {
 
     fun get_text(): String{
         val rgb_t = "RGB: " +rgb[0] +", " +rgb[1] + ", "+ rgb[2]
-        val hex_t = "HEX: " + hex
+        val hex_t = "HEX: #" + hex
         val cmyk_t="CMYK: " +cmyk[0]+"%, "+cmyk[1]+"%, "+cmyk[2]+ "%, "+cmyk[3] +"%"
         val hsl_t ="HSL: " + hsl[0] +"°, " + hsl[1]+ "%, "+ hsl[2]+"%"
         val hsv_t ="HSV: " + hsv[0] + "°, "+ hsv[1] +"%, "+hsv[2] +"%"
@@ -62,10 +60,6 @@ class ColorCode() {
     }
 
     fun get_hsv(): MutableList<Int>{
-       // if(rgb==null){
-      //      hex2rgb(hex)
-       // }
-       // rgb2hsv()
         return this.hsv
     }
 
@@ -276,8 +270,10 @@ class ColorCode() {
 
     //code below is referenced from https://www.cocyer.com/convert-rgb-color-to-hex-code-in-java/
 
-    fun rgb2hex() {  // Function to convert the RGB code to Hex color code
-        this.hex = java.lang.String.format("#%02X%02X%02X", this.rgb[0], this.rgb[1], this.rgb[2])
+    fun rgb2hex() {
+        // Function to convert the RGB code to Hex color code
+        var h = java.lang.String.format("#%02X%02X%02X", this.rgb[0], this.rgb[1], this.rgb[2])
+        this.hex = h.substring(1)
     }
 
 
